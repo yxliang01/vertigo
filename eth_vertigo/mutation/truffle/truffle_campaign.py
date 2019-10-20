@@ -10,6 +10,7 @@ from typing import List, Callable
 from time import time
 from pathlib import Path
 import logging
+import os
 from queue import Queue
 
 
@@ -75,8 +76,9 @@ class TruffleCampaign(Campaign):
             self.mutations += mutator.mutate(source, self.project_directory)
         for f in self.filters:
             self.mutations = f.apply(self.mutations)
-        mutation_limit = 3
-        self.mutations = self.mutations[:mutation_limit]
+        if "NUM_MUTATIONS" in os.environ:
+            mutation_limit = int(os.environ["NUM_MUTATIONS"])
+            self.mutations = self.mutations[:mutation_limit]
         self.is_set_up = True
 
     def test_mutation(self, mutation: Mutation, done_callback: Callable):
