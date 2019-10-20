@@ -73,10 +73,10 @@ class TruffleCampaign(Campaign):
         mutator = SolidityMutator()
         for source in self.sources:
             self.mutations += mutator.mutate(source, self.project_directory)
-            if self.mutations:
-                break
         for f in self.filters:
             self.mutations = f.apply(self.mutations)
+        mutation_limit = 3
+        self.mutations = self.mutations[:mutation_limit]
         self.is_set_up = True
 
     def test_mutation(self, mutation: Mutation, done_callback: Callable):
