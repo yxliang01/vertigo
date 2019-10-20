@@ -73,6 +73,7 @@ class TruffleCampaign(Campaign):
         mutator = SolidityMutator()
         for source in self.sources:
             self.mutations += mutator.mutate(source, self.project_directory)
+            break
         for f in self.filters:
             self.mutations = f.apply(self.mutations)
         self.is_set_up = True
