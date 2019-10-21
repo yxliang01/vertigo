@@ -12,7 +12,7 @@ import shutil
 
 def _make_temp_truffle_directory(original_dir: str):
     td = mkdtemp()
-    copy_tree(original_dir, td)
+    copy_tree(original_dir, td, preserve_symlinks=1)
     return td
 
 
