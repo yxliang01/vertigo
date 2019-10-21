@@ -55,7 +55,7 @@ class TruffleRunner(Runner):
             raise NotImplementedError
 
         temp_dir = _make_temp_truffle_directory(self.project_directory)
-        _set_reporter(temp_dir)
+        # _set_reporter(temp_dir)
         if mutation:
             _apply_mutation(mutation, temp_dir)
 
